@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "270547495811",
+    "project_id": "zakiyudin-93fcb",
+    "storage_bucket": "zakiyudin-93fcb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:270547495811:android:8a83989f64d306148f64b6",
+        "android_client_info": {
+          "package_name": "com.example.booking_bus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAB5g7d4pbRQOC48QVARGjX-EELk_Ej4Sk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
