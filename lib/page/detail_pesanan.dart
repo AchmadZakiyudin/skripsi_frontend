@@ -85,71 +85,88 @@ class _DetailPesananPageState extends State<DetailPesananPage> {
   }
 
   void showEditDialog(Map<String, dynamic> item) {
+    final TextEditingController namaController =
+        TextEditingController(text: item['nama']);
+    final TextEditingController teleponController =
+        TextEditingController(text: item['telepon']);
     final TextEditingController tanggalController =
         TextEditingController(text: item['tanggal']);
-    selectedTujuan = item['tujuan'];
-    selectedHarga = item['harga'];
+    String tujuan = item['tujuan'] ?? '';
+    String harga = item['harga'] ?? '0';
 
     showDialog(
       context: context,
       builder: (context) => StatefulBuilder(
         builder: (context, setStateDialog) {
-          void updateHarga(String tujuan) {
+          void updateHarga(String tujuanBaru) {
             final hargaData = listharga.firstWhere(
-              (h) => h.lokasi == tujuan,
+              (h) => h.lokasi == tujuanBaru,
               orElse: () => Harga(harga: '0'),
             );
-            selectedHarga = hargaData.harga ?? '0';
+            harga = hargaData.harga ?? '0';
           }
 
           return AlertDialog(
             title: const Text("Edit Pesanan"),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                DropdownButtonFormField<String>(
-                  value: selectedTujuan,
-                  decoration: const InputDecoration(labelText: "Tujuan"),
-                  items: listharga
-                      .map((harga) => DropdownMenuItem(
-                            value: harga.lokasi,
-                            child: Text(harga.lokasi ?? ''),
-                          ))
-                      .toList(),
-                  onChanged: (value) {
-                    setStateDialog(() {
-                      selectedTujuan = value!;
-                      updateHarga(selectedTujuan);
-                    });
-                  },
-                ),
-                const SizedBox(height: 10),
-                Text("Harga: Rp $selectedHarga"),
-                const SizedBox(height: 10),
-                TextFormField(
-                  controller: tanggalController,
-                  readOnly: true,
-                  decoration: const InputDecoration(
-                    labelText: "Tanggal",
-                    prefixIcon: Icon(Icons.date_range),
+            content: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextFormField(
+                    controller: namaController,
+                    decoration: const InputDecoration(labelText: "Nama"),
                   ),
-                  onTap: () async {
-                    DateTime? pickedDate = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime.now(),
-                      lastDate: DateTime(2100),
-                    );
-                    if (pickedDate != null) {
-                      String formattedDate =
-                          DateFormat('dd-MM-yyyy').format(pickedDate);
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: teleponController,
+                    decoration: const InputDecoration(labelText: "Telepon"),
+                    keyboardType: TextInputType.phone,
+                  ),
+                  const SizedBox(height: 10),
+                  DropdownButtonFormField<String>(
+                    value: tujuan,
+                    decoration: const InputDecoration(labelText: "Tujuan"),
+                    items: listharga
+                        .map((harga) => DropdownMenuItem(
+                              value: harga.lokasi,
+                              child: Text(harga.lokasi ?? ''),
+                            ))
+                        .toList(),
+                    onChanged: (value) {
                       setStateDialog(() {
-                        tanggalController.text = formattedDate;
+                        tujuan = value!;
+                        updateHarga(tujuan);
                       });
-                    }
-                  },
-                ),
-              ],
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  Text("Harga: Rp $harga"),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: tanggalController,
+                    readOnly: true,
+                    decoration: const InputDecoration(
+                      labelText: "Tanggal",
+                      prefixIcon: Icon(Icons.date_range),
+                    ),
+                    onTap: () async {
+                      DateTime? pickedDate = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime.now(),
+                        lastDate: DateTime(2100),
+                      );
+                      if (pickedDate != null) {
+                        String formattedDate =
+                            DateFormat('dd-MM-yyyy').format(pickedDate);
+                        setStateDialog(() {
+                          tanggalController.text = formattedDate;
+                        });
+                      }
+                    },
+                  ),
+                ],
+              ),
             ),
             actions: [
               TextButton(
@@ -158,7 +175,9 @@ class _DetailPesananPageState extends State<DetailPesananPage> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  if (selectedTujuan.isEmpty ||
+                  if (namaController.text.isEmpty ||
+                      teleponController.text.isEmpty ||
+                      tujuan.isEmpty ||
                       tanggalController.text.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Mohon lengkapi data')),
@@ -167,8 +186,10 @@ class _DetailPesananPageState extends State<DetailPesananPage> {
                   }
 
                   updatePesanan(item['id'], {
-                    'tujuan': selectedTujuan,
-                    'harga': selectedHarga,
+                    'nama': namaController.text,
+                    'telepon': teleponController.text,
+                    'tujuan': tujuan,
+                    'harga': harga,
                     'tanggal': tanggalController.text,
                   });
 
@@ -202,8 +223,50 @@ class _DetailPesananPageState extends State<DetailPesananPage> {
                   child: ListTile(
                     leading: const Icon(Icons.directions_bus),
                     title: Text(item['nama_bus'] ?? '-'),
-                    subtitle: Text(
-                      '${item['nama']} - ${item['tujuan']}\nTanggal: ${item['tanggal']}\nHarga: Rp ${item['harga']}',
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${item['nama']} - ${item['tujuan']}',
+                        ),
+                        Text(
+                          'Tanggal: ${item['tanggal']}',
+                        ),
+                        Text(
+                          'Harga: Rp ${item['harga']}',
+                        ),
+                        const SizedBox(height: 4),
+                        Row(
+                          children: [
+                            const Text("Status: "),
+                            Flexible(
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8, vertical: 4),
+                                decoration: BoxDecoration(
+                                  color: item['status'] == 'lunas'
+                                      ? Colors.green[100]
+                                      : Colors.orange[100],
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Text(
+                                  item['status'] == 'lunas'
+                                      ? 'Lunas'
+                                      : 'Belum Dikonfirmasi',
+                                  style: TextStyle(
+                                    color: item['status'] == 'lunas'
+                                        ? Colors.green
+                                        : Colors.orange,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  softWrap: true,
+                                  overflow: TextOverflow.visible,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
                     ),
                     isThreeLine: true,
                     trailing: Row(

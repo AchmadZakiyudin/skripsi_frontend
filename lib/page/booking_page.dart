@@ -151,7 +151,15 @@ class _BookingPageState extends State<BookingPage> {
                   items: listharga
                       .map((harga) => DropdownMenuItem(
                             value: harga.lokasi,
-                            child: Text(harga.lokasi ?? ''),
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width *
+                                  0.6, // Batasi lebar
+                              child: Text(
+                                harga.lokasi ?? '',
+                                overflow: TextOverflow
+                                    .ellipsis, // Potong jika terlalu panjang
+                              ),
+                            ),
                           ))
                       .toList(),
                   onChanged: (value) {

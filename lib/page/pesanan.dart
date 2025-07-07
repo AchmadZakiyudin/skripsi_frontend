@@ -15,6 +15,7 @@ class PesananPage extends StatefulWidget {
   final String tujuan;
   final String telepon;
   final String tanggal;
+  final String harga;
 
   const PesananPage({
     Key? key,
@@ -24,7 +25,7 @@ class PesananPage extends StatefulWidget {
     required this.tujuan,
     required this.telepon,
     required this.tanggal,
-    required String harga,
+    required this.harga,
     required idPesanan,
   }) : super(key: key);
 
@@ -109,7 +110,7 @@ class _PesananPageState extends State<PesananPage> {
 
   @override
   Widget build(BuildContext context) {
-    final harga = widget.bus.harga ?? '0';
+    final harga = widget.harga;
 
     return Scaffold(
       appBar: AppBar(
@@ -146,16 +147,18 @@ class _PesananPageState extends State<PesananPage> {
                   const Text("Upload Bukti Transfer",
                       style: TextStyle(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 10),
-                  buktiTransfer != null
-                      ? Image.file(buktiTransfer!, height: 150)
-                      : buktiImageUrl != null
-                          ? Image.network(
-                              'http://192.168.1.7:8000/$buktiImageUrl',
-                              height: 150,
-                              errorBuilder: (context, error, stackTrace) =>
-                                  const Text("Gagal menampilkan gambar"),
-                            )
-                          : const Text("Belum ada bukti transfer"),
+                  // Tampilkan gambar bukti transfer jika ada
+                  if (buktiTransfer != null)
+                    Image.file(buktiTransfer!, height: 150)
+                  else if (buktiImageUrl != null && buktiImageUrl!.isNotEmpty)
+                    Image.network(
+                      'http://192.168.1.7:8000/$buktiImageUrl',
+                      height: 150,
+                      errorBuilder: (context, error, stackTrace) =>
+                          const Text("Gagal menampilkan gambar"),
+                    )
+                  else
+                    const Text("Belum ada bukti transfer"),
                   TextButton.icon(
                     onPressed: pickImage,
                     icon: const Icon(Icons.upload),

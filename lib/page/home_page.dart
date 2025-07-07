@@ -1,10 +1,10 @@
 import 'package:booking_bus/controller/auth_controller.dart';
 import 'package:booking_bus/model/bus.dart';
-import 'package:booking_bus/model/user.dart';
+// import 'package:booking_bus/model/user.dart';
 import 'package:booking_bus/page/detail_page.dart';
 import 'package:booking_bus/page/detail_pesanan.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+// import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
@@ -130,20 +130,6 @@ class _HomePageState extends State<HomePage> {
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: Text(
-              'Top Users',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.black54,
-              ),
-            ),
-          ),
-          const SizedBox(height: 16),
-          users(),
-          const SizedBox(height: 30),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Text(
               'New Bus',
               style: TextStyle(
                 fontSize: 18,
@@ -204,29 +190,6 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                        Positioned(
-                          bottom: 16,
-                          right: 0,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.blue[900],
-                              borderRadius: const BorderRadius.only(
-                                bottomRight: Radius.circular(18),
-                                topLeft: Radius.circular(18),
-                              ),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 8),
-                            child: Text(
-                              '\$ ${bus.price!}',
-                              style: const TextStyle(
-                                fontSize: 18,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ),
@@ -241,20 +204,6 @@ class _HomePageState extends State<HomePage> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      RatingBar.builder(
-                        initialRating: bus.rating!,
-                        minRating: 1,
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        itemCount: 5,
-                        itemBuilder: (context, _) => const Icon(
-                          Icons.star,
-                          color: Colors.blue,
-                        ),
-                        ignoreGestures: true,
-                        itemSize: 15,
-                        onRatingUpdate: (rating) {},
-                      ),
                     ],
                   ),
                   const SizedBox(height: 4),
@@ -266,11 +215,6 @@ class _HomePageState extends State<HomePage> {
                         style: TextStyle(fontSize: 16, color: Colors.grey[700]),
                       ),
                       const Spacer(),
-                      Text(
-                        bus.users!.toString(),
-                        style: TextStyle(fontSize: 16, color: Colors.grey[700]),
-                      ),
-                      Icon(Icons.person, size: 18, color: Colors.grey[700]),
                     ],
                   ),
                 ],
@@ -282,91 +226,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget users() {
-    return SizedBox(
-      height: 150,
-      child: ListView.builder(
-        itemCount: listUser.length,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          User user = listUser[index];
-          return Container(
-            width: 150,
-            margin: EdgeInsets.fromLTRB(
-              index == 0 ? 16 : 8,
-              0,
-              index == listUser.length - 1 ? 16 : 8,
-              0,
-            ),
-            decoration: BoxDecoration(
-              color: Colors.indigo[900],
-              borderRadius: BorderRadius.circular(16),
-            ),
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.asset(
-                      user.image!,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                RatingBar.builder(
-                  initialRating: user.rating!,
-                  minRating: 1,
-                  direction: Axis.horizontal,
-                  allowHalfRating: true,
-                  itemCount: 5,
-                  itemBuilder: (context, _) => const Icon(
-                    Icons.star,
-                    color: Colors.blue,
-                  ),
-                  ignoreGestures: true,
-                  itemSize: 13,
-                  onRatingUpdate: (rating) {},
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  user.name!,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '${user.offer!} offers',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w300,
-                        color: Colors.white60,
-                      ),
-                    ),
-                    const Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      color: Colors.blue,
-                      size: 20,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          );
-        },
-      ),
-    );
-  }
-
   Widget busNear() {
     return SizedBox(
-      height: 180,
+      height: 210,
       child: ListView.builder(
         itemCount: listBusNear.length,
         scrollDirection: Axis.horizontal,
@@ -378,27 +240,50 @@ class _HomePageState extends State<HomePage> {
               width: 300,
               margin: EdgeInsets.fromLTRB(index == 0 ? 16 : 8, 0,
                   index == listBusNear.length - 1 ? 16 : 8, 0),
-              child: Stack(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
-                    child: Image.asset(
-                      bus.image!,
-                      fit: BoxFit.cover,
-                      width: double.maxFinite,
+                  Expanded(
+                    child: Stack(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Image.asset(
+                            bus.image!,
+                            fit: BoxFit.cover,
+                            width: double.maxFinite,
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 16,
+                          right: 0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.blue[900],
+                              borderRadius: const BorderRadius.only(
+                                bottomRight: Radius.circular(18),
+                                topLeft: Radius.circular(18),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Positioned(
-                    bottom: 16,
-                    right: 0,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.blue[900],
-                        borderRadius: const BorderRadius.only(
-                          bottomRight: Radius.circular(18),
-                          topLeft: Radius.circular(18),
-                        ),
-                      ),
+                  const SizedBox(height: 8),
+                  Text(
+                    bus.title ?? "-",
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    bus.location?.split(', ').first ?? "-",
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey[700],
                     ),
                   ),
                 ],

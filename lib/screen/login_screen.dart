@@ -9,189 +9,209 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen>
+    with SingleTickerProviderStateMixin {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final authC = Get.find<AuthController>();
 
-    return Container(
-      color: const Color.fromARGB(255, 29, 29, 29),
-      child: SafeArea(
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          resizeToAvoidBottomInset: false,
-          body: Stack(
-            children: [
-              // Background Image
-              Container(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("asset/dark_pattern.jpg"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-
-              // Top Design
-              Container(
-                height: MediaQuery.of(context).size.height / 4 - 20,
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 29, 29, 29),
-                  borderRadius:
-                      BorderRadius.only(bottomLeft: Radius.circular(50)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.green,
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: Offset(0, 5),
-                    ),
-                  ],
-                ),
-              ),
-
-              // Login/Register Form
-              Container(
-                margin: const EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Obx(
-                      () => Text(
-                        authC.isLogin.value ? "Login" : "Register",
-                        style: const TextStyle(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: SingleChildScrollView(
+          child: FadeTransition(
+            opacity: _animation,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 28.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Logo dan judul di atas form
+                  Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 40,
+                        backgroundColor: Colors.lightBlueAccent,
+                        child: Icon(Icons.directions_bus,
+                            size: 50, color: Colors.white),
+                      ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        "SPM Trans",
+                        style: TextStyle(
+                          color: Colors.lightBlueAccent,
                           fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                          color: Colors.greenAccent,
+                          fontSize: 32,
+                          letterSpacing: 2,
                         ),
                       ),
+                      const SizedBox(height: 5),
+                    ],
+                  ),
+                  // Form login/register
+                  Container(
+                    padding: const EdgeInsets.all(24),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(24),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.blueAccent.withOpacity(0.08),
+                          blurRadius: 16,
+                          spreadRadius: 2,
+                        )
+                      ],
                     ),
-                    const SizedBox(height: 30),
-                    Container(
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.7),
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.green,
-                            spreadRadius: 1,
-                            blurRadius: 2,
-                            offset: Offset(0, 3),
-                          )
-                        ],
-                      ),
-                      child: Form(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Username",
-                              style: TextStyle(
-                                color: Colors.white70,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
+                    child: Form(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Obx(
+                            () => Text(
+                              authC.isLogin.value ? "Login" : "Register",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 26,
+                                color: Colors.lightBlueAccent,
                               ),
                             ),
-                            const SizedBox(height: 5),
-                            TextField(
-                              controller: email,
-                              style: const TextStyle(color: Colors.white),
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.white10,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                hintText: "Enter your username",
-                                hintStyle:
-                                    const TextStyle(color: Colors.white54),
+                          ),
+                          const SizedBox(height: 24),
+                          TextField(
+                            controller: email,
+                            decoration: InputDecoration(
+                              prefixIcon: const Icon(Icons.person,
+                                  color: Colors.lightBlueAccent),
+                              filled: true,
+                              fillColor: Colors.blue[50],
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
                               ),
+                              hintText: "Email",
                             ),
-                            const SizedBox(height: 20),
-                            const Text(
-                              "Password",
-                              style: TextStyle(
-                                color: Colors.white70,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
+                          ),
+                          const SizedBox(height: 18),
+                          TextField(
+                            controller: password,
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              prefixIcon: const Icon(Icons.lock,
+                                  color: Colors.lightBlueAccent),
+                              filled: true,
+                              fillColor: Colors.blue[50],
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
                               ),
+                              hintText: "Password",
                             ),
-                            const SizedBox(height: 5),
-                            TextField(
-                              controller: password,
-                              obscureText: true,
-                              style: const TextStyle(color: Colors.white),
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.white10,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                hintText: "Enter your password",
-                                hintStyle:
-                                    const TextStyle(color: Colors.white54),
-                              ),
-                            ),
-                            const SizedBox(height: 30),
-                            Obx(
-                              () => SizedBox(
-                                width: double.infinity,
-                                height: 50,
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.greenAccent,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
+                          ),
+                          Obx(() => authC.isLogin.value
+                              ? const SizedBox.shrink()
+                              : const Padding(
+                                  padding: EdgeInsets.only(top: 6, left: 4),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      "Password harus minimal 8 karakter",
+                                      style: TextStyle(
+                                        color: Colors.redAccent,
+                                        fontSize: 12,
+                                        fontStyle: FontStyle.italic,
+                                      ),
                                     ),
                                   ),
-                                  onPressed: () {
-                                    if (authC.isLogin.value) {
-                                      authC.signIn(email.text, password.text);
-                                    } else {
-                                      authC.register(email.text, password.text);
-                                    }
-                                  },
-                                  child: Text(
-                                    authC.isLogin.value ? "Login" : "Register",
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                )),
+                          const SizedBox(height: 28),
+                          Obx(
+                            () => SizedBox(
+                              width: double.infinity,
+                              height: 48,
+                              child: ElevatedButton.icon(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.lightBlueAccent,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
                                   ),
                                 ),
+                                icon: Icon(
+                                  authC.isLogin.value
+                                      ? Icons.login
+                                      : Icons.app_registration,
+                                  color: Colors.white,
+                                ),
+                                label: Text(
+                                  authC.isLogin.value ? "Login" : "Register",
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  if (authC.isLogin.value) {
+                                    authC.signIn(email.text, password.text);
+                                  } else {
+                                    authC.register(email.text, password.text);
+                                  }
+                                },
                               ),
                             ),
-                            const SizedBox(height: 20),
-                            Center(
-                              child: TextButton(
+                          ),
+                          const SizedBox(height: 18),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                authC.isLogin.value
+                                    ? "Belum punya akun?"
+                                    : "Sudah punya akun?",
+                                style: const TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              TextButton(
                                 onPressed: () {
                                   authC.isLogin.value = !authC.isLogin.value;
                                 },
                                 child: Text(
-                                  authC.isLogin.value
-                                      ? "Create Account"
-                                      : "I Have Account",
+                                  authC.isLogin.value ? "Register" : "Login",
                                   style: const TextStyle(
-                                    color: Colors.white70,
+                                    color: Colors.lightBlueAccent,
+                                    fontWeight: FontWeight.bold,
                                     decoration: TextDecoration.underline,
                                   ),
                                 ),
                               ),
-                            )
-                          ],
-                        ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
