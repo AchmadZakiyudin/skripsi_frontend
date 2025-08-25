@@ -33,7 +33,7 @@ class _DetailPesananPageState extends State<DetailPesananPage> {
   }
 
   Future<void> getPesanan() async {
-    final url = Uri.parse('http://192.168.1.7:8000/api/pesanan?uid=$uid');
+    final url = Uri.parse('http://192.168.1.5:8000/api/pesanan?uid=$uid');
     try {
       final response = await http.get(url);
       if (response.statusCode == 200) {
@@ -49,7 +49,7 @@ class _DetailPesananPageState extends State<DetailPesananPage> {
   }
 
   Future<void> deletePesanan(int id) async {
-    final url = Uri.parse('http://192.168.1.7:8000/api/pesanan/$id');
+    final url = Uri.parse('http://192.168.1.5:8000/api/pesanan/$id');
     final response = await http.delete(url);
     if (response.statusCode == 200) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -62,7 +62,7 @@ class _DetailPesananPageState extends State<DetailPesananPage> {
   }
 
   Future<void> updatePesanan(int id, Map<String, String> data) async {
-    final url = Uri.parse('http://192.168.1.7:8000/api/pesanan/$id');
+    final url = Uri.parse('http://192.168.1.5:8000/api/pesanan/$id');
     final response = await http.put(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -269,41 +269,41 @@ class _DetailPesananPageState extends State<DetailPesananPage> {
                       ],
                     ),
                     isThreeLine: true,
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.edit, color: Colors.blue),
-                          onPressed: () => showEditDialog(item),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.delete, color: Colors.red),
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (ctx) => AlertDialog(
-                                title: const Text("Konfirmasi"),
-                                content: const Text(
-                                    "Yakin ingin menghapus pesanan?"),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(ctx),
-                                    child: const Text("Batal"),
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.pop(ctx);
-                                      deletePesanan(item['id']);
-                                    },
-                                    child: const Text("Hapus"),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                    // trailing: Row(
+                    //   mainAxisSize: MainAxisSize.min,
+                    //   children: [
+                    //     IconButton(
+                    //       icon: const Icon(Icons.edit, color: Colors.blue),
+                    //       onPressed: () => showEditDialog(item),
+                    //     ),
+                    //     IconButton(
+                    //       icon: const Icon(Icons.delete, color: Colors.red),
+                    //       onPressed: () {
+                    //         showDialog(
+                    //           context: context,
+                    //           builder: (ctx) => AlertDialog(
+                    //             title: const Text("Konfirmasi"),
+                    //             content: const Text(
+                    //                 "Yakin ingin menghapus pesanan?"),
+                    //             actions: [
+                    //               TextButton(
+                    //                 onPressed: () => Navigator.pop(ctx),
+                    //                 child: const Text("Batal"),
+                    //               ),
+                    //               ElevatedButton(
+                    //                 onPressed: () {
+                    //                   Navigator.pop(ctx);
+                    //                   deletePesanan(item['id']);
+                    //                 },
+                    //                 child: const Text("Hapus"),
+                    //               ),
+                    //             ],
+                    //           ),
+                    //         );
+                    //       },
+                    //     ),
+                    //   ],
+                    // ),
                     onTap: () {
                       Navigator.push(
                         context,

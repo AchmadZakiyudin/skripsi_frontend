@@ -1,6 +1,7 @@
 import 'package:booking_bus/model/bus.dart';
 import 'package:booking_bus/model/harga.dart';
 import 'package:booking_bus/page/pesanan.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -34,6 +35,7 @@ class _BookingPageState extends State<BookingPage> {
   void initState() {
     super.initState();
     busController.text = widget.bus.title!;
+    loadProfileData();
   }
 
   void updateHarga(String tujuan) {
@@ -46,6 +48,20 @@ class _BookingPageState extends State<BookingPage> {
     });
   }
 
+  Future<void> loadProfileData() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final doc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .get();
+      setState(() {
+        namaController.text = doc['nama'] ?? '';
+        teleponController.text = doc['telepon'] ?? '';
+      });
+    }
+  }
+
   Future<void> simpanPesanan({
     required String nama,
     required String lokasi,
@@ -55,7 +71,7 @@ class _BookingPageState extends State<BookingPage> {
     required String namaBus,
     required String harga,
   }) async {
-    final url = Uri.parse('http://192.168.1.7:8000/api/pesanan');
+    final url = Uri.parse('http://192.168.1.5:8000/api/pesanan');
     // final url = Uri.parse('http://127.0.0.1:8000/api/pesanan');
 
     final response = await http.post(
@@ -209,7 +225,7 @@ class _BookingPageState extends State<BookingPage> {
                     );
                     if (pickedDate != null) {
                       String formattedDate =
-                          DateFormat('dd-MM-yyyy').format(pickedDate);
+                          DateFormat('yyyy-MM-dd').format(pickedDate);
                       setState(() {
                         tanggalController.text = formattedDate;
                       });

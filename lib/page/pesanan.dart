@@ -53,7 +53,7 @@ class _PesananPageState extends State<PesananPage> {
 
     final request = http.MultipartRequest(
       'POST',
-      Uri.parse('http://192.168.1.7:8000/api/pesanan'),
+      Uri.parse('http://192.168.1.5:8000/api/pesanan'),
     );
 
     request.fields.addAll({
@@ -141,8 +141,9 @@ class _PesananPageState extends State<PesananPage> {
                   const Text("Pembayaran",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  _buildItem("No. Rekening", "1234567890"),
-                  _buildItem("A.N", "PT. Bus Bersama"),
+                  _buildItem("No. Rekening", "2250914701"),
+                  _buildItem("A.N", "Isrorul Ihsanianto"),
+                  _buildItem("Nomor HP", "083126570958"),
                   const SizedBox(height: 10),
                   const Text("Upload Bukti Transfer",
                       style: TextStyle(fontWeight: FontWeight.bold)),
@@ -152,7 +153,7 @@ class _PesananPageState extends State<PesananPage> {
                     Image.file(buktiTransfer!, height: 150)
                   else if (buktiImageUrl != null && buktiImageUrl!.isNotEmpty)
                     Image.network(
-                      'http://192.168.1.7:8000/$buktiImageUrl',
+                      'http://192.168.1.5:8000/$buktiImageUrl',
                       height: 150,
                       errorBuilder: (context, error, stackTrace) =>
                           const Text("Gagal menampilkan gambar"),

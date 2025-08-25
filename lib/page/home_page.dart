@@ -3,6 +3,7 @@ import 'package:booking_bus/model/bus.dart';
 // import 'package:booking_bus/model/user.dart';
 import 'package:booking_bus/page/detail_page.dart';
 import 'package:booking_bus/page/detail_pesanan.dart';
+import 'package:booking_bus/page/profile_page.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
@@ -51,7 +52,7 @@ class _HomePageState extends State<HomePage> {
       _buildHomeContent(),
       const DetailPesananPage(),
       const Center(child: Text('Favorite')),
-      const Center(child: Text('Profile')),
+      const ProfilePage(),
     ];
   }
 
@@ -110,16 +111,16 @@ class _HomePageState extends State<HomePage> {
                 const Text('SPM Trans',
                     style:
                         TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-                ElevatedButton(
-                  onPressed: authC.signOut,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red[400],
-                    shape: const CircleBorder(),
-                    padding: const EdgeInsets.all(12),
-                    elevation: 2,
-                  ),
-                  child: const Icon(Icons.logout, color: Colors.white),
-                ),
+                // ElevatedButton(
+                //   onPressed: authC.signOut,
+                //   style: ElevatedButton.styleFrom(
+                //     backgroundColor: Colors.red[400],
+                //     shape: const CircleBorder(),
+                //     padding: const EdgeInsets.all(12),
+                //     elevation: 2,
+                //   ),
+                //   child: const Icon(Icons.logout, color: Colors.white),
+                // ),
                 const Spacer(),
                 const Icon(Icons.search, size: 30),
               ],
