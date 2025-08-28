@@ -33,7 +33,7 @@ class Bus {
 final listbusTop = [
   Bus(
     description:
-        "Bus pariwisata semesta melaju menuju destinasi impian. Dengan kenyamanan kursi rebah dan sistem pendingin terbaru, perjalanan panjang menjadi pengalaman menyenangkan. Jetbus 5 membawa setiap penumpang pada petualangan tak terlupakan. Di balik kemudi, sopir profesional mengantar dengan aman dan tepat waktu. Nikmati layanan eksklusif, hanya bersama SPM Trans.",
+        "Bus pariwisata Anugrah melaju menuju destinasi impian. Dengan kenyamanan kursi rebah dan sistem pendingin terbaru, perjalanan panjang menjadi pengalaman menyenangkan. Jetbus 5 membawa setiap penumpang pada petualangan tak terlupakan. Di balik kemudi, sopir profesional mengantar dengan aman dan tepat waktu. Nikmati layanan eksklusif, hanya bersama SPM Trans.",
     facilities: ['Free Wifi', '1 Toilet'],
     id: 'bus1',
     image: 'asset/bus1.png',
@@ -47,7 +47,7 @@ final listbusTop = [
   ),
   Bus(
     description:
-        "Bus pariwisata semesta melaju menuju destinasi impian. Dengan kenyamanan kursi rebah dan sistem pendingin terbaru, perjalanan panjang menjadi pengalaman menyenangkan. Jetbus 5 membawa setiap penumpang pada petualangan tak terlupakan. Di balik kemudi, sopir profesional mengantar dengan aman dan tepat waktu. Nikmati layanan eksklusif, hanya bersama SPM Trans.",
+        "Bus pariwisata Bismillah melaju menuju destinasi impian. Dengan kenyamanan kursi rebah dan sistem pendingin terbaru, perjalanan panjang menjadi pengalaman menyenangkan. Jetbus 5 membawa setiap penumpang pada petualangan tak terlupakan. Di balik kemudi, sopir profesional mengantar dengan aman dan tepat waktu. Nikmati layanan eksklusif, hanya bersama SPM Trans.",
     facilities: ['Free Wifi', '1 Toilet'],
     id: 'bus2',
     image: 'asset/bus2.png',
@@ -63,7 +63,7 @@ final listbusTop = [
 final listBusNear = [
   Bus(
     description:
-        "Bus pariwisata semesta melaju menuju destinasi impian. Dengan kenyamanan kursi rebah dan sistem pendingin terbaru, perjalanan panjang menjadi pengalaman menyenangkan. Jetbus 5 membawa setiap penumpang pada petualangan tak terlupakan. Di balik kemudi, sopir profesional mengantar dengan aman dan tepat waktu. Nikmati layanan eksklusif, hanya bersama SPM Trans.",
+        "Bus pariwisata Semesta melaju menuju destinasi impian. Dengan kenyamanan kursi rebah dan sistem pendingin terbaru, perjalanan panjang menjadi pengalaman menyenangkan. Jetbus 5 membawa setiap penumpang pada petualangan tak terlupakan. Di balik kemudi, sopir profesional mengantar dengan aman dan tepat waktu. Nikmati layanan eksklusif, hanya bersama SPM Trans.",
     facilities: ['Free Wifi', '1 Toilet'],
     id: 'bus3',
     image: 'asset/bus3.png',
@@ -77,7 +77,7 @@ final listBusNear = [
   ),
   Bus(
     description:
-        "Bus pariwisata semesta melaju menuju destinasi impian. Dengan kenyamanan kursi rebah dan sistem pendingin terbaru, perjalanan panjang menjadi pengalaman menyenangkan. Jetbus 5 membawa setiap penumpang pada petualangan tak terlupakan. Di balik kemudi, sopir profesional mengantar dengan aman dan tepat waktu. Nikmati layanan eksklusif, hanya bersama SPM Trans.",
+        "Bus pariwisata Pertiwi melaju menuju destinasi impian. Dengan kenyamanan kursi rebah dan sistem pendingin terbaru, perjalanan panjang menjadi pengalaman menyenangkan. Jetbus 5 membawa setiap penumpang pada petualangan tak terlupakan. Di balik kemudi, sopir profesional mengantar dengan aman dan tepat waktu. Nikmati layanan eksklusif, hanya bersama SPM Trans.",
     facilities: ['Free Wifi', '1 Toilet'],
     id: 'bus4',
     image: 'asset/bus4.png',
@@ -91,7 +91,7 @@ final listBusNear = [
   ),
   Bus(
     description:
-        "Bus pariwisata semesta melaju menuju destinasi impian. Dengan kenyamanan kursi rebah dan sistem pendingin terbaru, perjalanan panjang menjadi pengalaman menyenangkan. Jetbus 5 membawa setiap penumpang pada petualangan tak terlupakan. Di balik kemudi, sopir profesional mengantar dengan aman dan tepat waktu. Nikmati layanan eksklusif, hanya bersama SPM Trans.",
+        "Bus pariwisata Barokah melaju menuju destinasi impian. Dengan kenyamanan kursi rebah dan sistem pendingin terbaru, perjalanan panjang menjadi pengalaman menyenangkan. Jetbus 5 membawa setiap penumpang pada petualangan tak terlupakan. Di balik kemudi, sopir profesional mengantar dengan aman dan tepat waktu. Nikmati layanan eksklusif, hanya bersama SPM Trans.",
     facilities: ['Free Wifi', '1 Toilet'],
     id: 'bus5',
     image: 'asset/bus5.png',

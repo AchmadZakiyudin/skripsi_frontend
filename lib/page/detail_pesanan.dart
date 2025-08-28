@@ -33,7 +33,7 @@ class _DetailPesananPageState extends State<DetailPesananPage> {
   }
 
   Future<void> getPesanan() async {
-    final url = Uri.parse('http://192.168.1.5:8000/api/pesanan?uid=$uid');
+    final url = Uri.parse('https://azakiyudin.my.id/api/pesanan?uid=$uid');
     try {
       final response = await http.get(url);
       if (response.statusCode == 200) {
@@ -49,7 +49,7 @@ class _DetailPesananPageState extends State<DetailPesananPage> {
   }
 
   Future<void> deletePesanan(int id) async {
-    final url = Uri.parse('http://192.168.1.5:8000/api/pesanan/$id');
+    final url = Uri.parse('https://azakiyudin.my.id/api/pesanan/$id');
     final response = await http.delete(url);
     if (response.statusCode == 200) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -62,7 +62,7 @@ class _DetailPesananPageState extends State<DetailPesananPage> {
   }
 
   Future<void> updatePesanan(int id, Map<String, String> data) async {
-    final url = Uri.parse('http://192.168.1.5:8000/api/pesanan/$id');
+    final url = Uri.parse('https://azakiyudin.my.id/api/pesanan/$id');
     final response = await http.put(
       url,
       headers: {'Content-Type': 'application/json'},

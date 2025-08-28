@@ -71,7 +71,7 @@ class _BookingPageState extends State<BookingPage> {
     required String namaBus,
     required String harga,
   }) async {
-    final url = Uri.parse('http://192.168.1.5:8000/api/pesanan');
+    final url = Uri.parse('https://azakiyudin.my.id/api/pesanan');
     // final url = Uri.parse('http://127.0.0.1:8000/api/pesanan');
 
     final response = await http.post(
